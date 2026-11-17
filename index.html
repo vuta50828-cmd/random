@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FF Sensitivity Random</title>
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+
+ margin:0;
+
+ background:radial-gradient(circle at top,#351010,#080808 65%);
+
+ color:white;
+
+ font-family:Arial,sans-serif;
+
+ min-height:100vh;
+
+ display:flex;
+
+ justify-content:center;
+
+ align-items:center;
+
+ padding:20px;
+
+}
+
+.app{
+
+ width:100%;
+
+ max-width:430px;
+
+ background:#151515;
+
+ border:1px solid #ff3030;
+
+ border-radius:20px;
+
+ padding:24px;
+
+ box-shadow:0 0 30px #ff202033;
+
+}
+
+h1{text-align:center;color:#ff3939;font-size:26px}
+
+.sub{text-align:center;color:#aaa;font-size:13px}
+
+.device{
+
+ background:#252525;
+
+ border-radius:12px;
+
+ padding:12px;
+
+ margin:20px 0;
+
+ text-align:center;
+
+}
+
+.device select{
+
+ background:#111;color:white;
+
+ border:1px solid #ff3939;
+
+ padding:10px;border-radius:8px;
+
+ width:100%;
+
+}
+
+.result{
+
+ display:flex;
+
+ justify-content:space-between;
+
+ padding:14px;
+
+ margin:9px 0;
+
+ background:#242424;
+
+ border-left:4px solid #ff3030;
+
+ border-radius:8px;
+
+}
+
+.result span:last-child{
+
+ color:#ff4949;font-weight:bold;
+
+ font-size:18px;
+
+}
+
+button{
+
+ width:100%;
+
+ padding:15px;
+
+ margin-top:12px;
+
+ border:0;
+
+ border-radius:10px;
+
+ background:#e82929;
+
+ color:white;
+
+ font-weight:bold;
+
+ font-size:16px;
+
+ cursor:pointer;
+
+}
+
+button:active{transform:scale(.97)}
+
+.copy{background:#333}
+
+.footer{text-align:center;color:#666;font-size:11px;margin-top:20px}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="app">
+
+<h1>FREE FIRE RANDOM</h1>
+
+<div class="sub">SENSITIVITY GENERATOR</div>
+
+<div class="device">
+
+<p>CHỌN THIẾT BỊ</p>
+
+<select id="device">
+
+<option value="145">iPhone XR</option>
+
+<option value="200">Android</option>
+
+<option value="200">iPhone khác</option>
+
+</select>
+
+</div>
+
+<div id="values">
+
+<div class="result"><span>Tổng quan</span><span>--</span></div>
+
+<div class="result"><span>Red Dot</span><span>--</span></div>
+
+<div class="result"><span>Ống ngắm 2X</span><span>--</span></div>
+
+<div class="result"><span>Ống ngắm 4X</span><span>--</span></div>
+
+<div class="result"><span>Ống ngắm súng ngắm</span><span>--</span></div>
+
+<div class="result"><span>Nhìn xung quanh</span><span>--</span></div>
+
+</div>
+
+<button onclick="random()">🎲 RANDOM ĐỘ NHẠY</button>
+
+<button class="copy" onclick="copy()">SAO CHÉP KẾT QUẢ</button>
+
+<div class="footer">FF SENSITIVITY • FAN MADE</div>
+
+</div>
+
+<script>
+
+let names=[
+
+"Tổng quan","Red Dot","Ống ngắm 2X",
+
+"Ống ngắm 4X","Ống ngắm súng ngắm",
+
+"Nhìn xung quanh"
+
+];
+
+let current=[];
+
+function random(){
+
+ let max=Number(document.getElementById("device").value);
+
+ current=names.map((n,i)=>{
+
+   let min=[110,100,90,80,50,70][i];
+
+   return Math.floor(Math.random()*(max-min+1))+min;
+
+ });
+
+ document.getElementById("values").innerHTML=
+
+ names.map((n,i)=>`
+
+ <div class="result">
+
+ <span>${n}</span>
+
+ <span>${current[i]}</span>
+
+ </div>`).join("");
+
+}
+
+function copy(){
+
+ if(!current.length){
+
+  alert("Hãy random trước!");
+
+  return;
+
+ }
+
+ let text="FREE FIRE SENSITIVITY\n"+
+
+ names.map((n,i)=>n+": "+current[i]).join("\n");
+
+ navigator.clipboard.writeText(text)
+
+ .then(()=>alert("Đã sao chép!"))
+
+ .catch(()=>alert("Không thể sao chép."));
+
+}
+
+</script>
+</body>
+</html>
